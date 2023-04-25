@@ -1,0 +1,25 @@
+version: '3.3'
+services:
+  address-book-backend:
+    build:
+      context: ../address-book-backend
+      args:
+        DOCKER_BUILDKIT: 1
+    image: address-book-backend
+    container_name: address-book-backend
+    ports:
+      - "7088:7088"
+    volumes:
+      - "${HOME}/.m2:/root/.m2"
+    networks:
+      - address-book-network
+  address-book-frontend:
+    build: ../address-book-frontend
+    image: address-book-frontend
+    container_name: address-book-frontend
+    ports:
+      - "4200:80"
+    networks:
+      - address-book-network
+networks:
+  address-book-network:
